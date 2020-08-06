@@ -1,0 +1,20 @@
+kind: pipeline
+type: docker
+name: 4d-static
+steps:
+- name: publish-static
+  image: plugins/docker
+  when:
+    branch: master
+    event: push
+  settings:
+    username:
+      from_secret: docker_hub_username
+    password:
+      from_secret: docker_hub_password
+    repo: 4ding/static
+    cache_from: 4ding/static
+    tags:
+    - 'latest'
+    - '0.0.0'
+    dockerfile: Dockerfile
