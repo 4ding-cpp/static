@@ -1,0 +1,2 @@
+# static
+proxy static file
