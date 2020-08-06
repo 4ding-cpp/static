@@ -1,5 +1,5 @@
 kind: pipeline
-type: kuberetes
+type: docker
 name: 4d-static
 steps:
 - name: publish-static
