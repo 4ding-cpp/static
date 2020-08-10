@@ -5,7 +5,7 @@ steps:
 - name: build-recaptcha
   image: golang:1.13
   commands:
-  - CGO_ENABLED=0 GOOS=linux GORACH=amd64 go build
+  - CGO_ENABLED=0 GOOS=linux GORACH=amd64 go build -o recaptcha
 
 - name: publish-static
   image: plugins/docker
