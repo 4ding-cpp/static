@@ -11,7 +11,7 @@ import (
 
 // HandleReCAPTCHA HandleReCAPTCHA
 func HandleReCAPTCHA(router *mux.Router) {
-	router.HandleFunc("/recaptcha", func(w http.ResponseWriter, r *http.Request) {
+	router.HandleFunc("/recaptcha/", func(w http.ResponseWriter, r *http.Request) {
 		vf := r.URL.Query().Get("vf")
 
 		v := url.Values{}
@@ -27,7 +27,7 @@ func HandleReCAPTCHA(router *mux.Router) {
 		fmt.Println(string(b))
 	})
 	router.HandleFunc("/reclient/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/tmp/recaptcha.html")
+		http.ServeFile(w, r, "./recaptcha.html")
 	})
 }
 

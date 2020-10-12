@@ -5,17 +5,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LebxbwZAAAAAJjTCvRT7eBHfrlaxnJVbaDz401q"></script>
     <script>
-        function onSubmit(token) {
-            document.getElementById("demo-form").submit();
+        function onClick(e) {
+            e.preventDefault();
+
+            grecaptcha.ready(function () {
+                grecaptcha.execute('6LebxbwZAAAAAJjTCvRT7eBHfrlaxnJVbaDz401q', { action: 'submit' }).then(function (token) {
+                    // Add your logic to submit to your backend server here.
+                    console.log(token);
+                    fetch('/recaptcha/?vf=' + token).then(response => {
+                        return response.text()
+                    }).then(x => {
+                        console.log(x)
+                    })
+                });
+            });
         }
+
+
+        function step1() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('step1');
+                }, 1000)
+            })
+        }
+
+        function step2(s1) {
+            console.log(s1);
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('step2');
+                });
+            })
+        }
+
+        function step() {
+            step1().then(x => {
+                console.log(x);
+                return step2(x);
+            }).then(y => {
+                console.log(y);
+            })
+        }
+
+
+
     </script>
 </head>
 
 <body>
-    <button class="g-recaptcha" data-sitekey="reCAPTCHA_site_key" data-callback='onSubmit'
-        data-action='submit'>Submit</button>
+    <button onclick="onClick(event)">按我呀</button>
+
+    <button onclick="step()">喔</button>
 </body>
 
 </html>
